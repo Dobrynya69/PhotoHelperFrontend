@@ -1,28 +1,26 @@
-<script setup>
-import LinkButton from '@/components/LinkButton.vue'
-</script>
-
 <template>
   <div class="home-page--wrapper">
     <div class="home-page--image">
       <img src="@/assets/images/background.jpg" alt="background" />
     </div>
     <span class="home-page--text">
-      {{ $route }}
       Welcome to Photo Helper, log-in into the account or create a new one if you are new
     </span>
     <div class="home-page--buttons">
-      <LinkButton path="/log-in" name="Log-In" />
-      <LinkButton path="/sign-up" name="Sign-Up" />
+      <AppLinkButton path="/log-in">Log-In</AppLinkButton>
+      <AppLinkButton path="/sign-up">Sign-Up</AppLinkButton>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import AppLinkButton from '@/components/AppLinkButton.vue'
+</script>
 
 <style scoped>
 .home-page--wrapper {
   position: relative;
   width: 100%;
-  padding-top: 70px;
   min-height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
