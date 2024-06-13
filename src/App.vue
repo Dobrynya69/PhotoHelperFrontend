@@ -1,17 +1,22 @@
 <template>
   <AppHeader />
-  <RouterView />
+  <RouterView v-if="isMounted" />
 </template>
 
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import AppHeader from '@/components/header/AppHeader.vue'
 import { useUserStore } from '@/stores'
+import { onMounted, ref } from 'vue';
 
 const userStore = useUserStore()
-const { populate } = userStore
+const isMounted = ref<boolean>(false)
 
-populate()
+onMounted(async () => {
+  await userStore.populate()
+  isMounted.value = true
+})
+
 </script>
 
 <style scoped>

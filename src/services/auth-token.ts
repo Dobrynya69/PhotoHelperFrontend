@@ -8,7 +8,7 @@ export const authTokenService = () => {
     if (token) {
       await storage.set(AUTH_TOKEN, token)
     } else {
-      await storage.clearExcept(AUTH_TOKEN)
+      await storage.remove(AUTH_TOKEN)
     }
   }
 

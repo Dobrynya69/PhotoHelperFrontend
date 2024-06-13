@@ -1,58 +1,62 @@
 <template>
   <form @submit.prevent="submit">
     <input
-      v-model="username"
+      class="custom-input"
+      required
+      v-model="body.username"
       placeholder="Username"
       :disabled="isSubmitting"
       :hide-details="true"
       type="text"
     />
     <input
-      v-model="password"
+      class="custom-input"
+      required
+      v-model="body.password"
       placeholder="Password"
       :disabled="isSubmitting"
       :hide-details="true"
       type="password"
     />
-    <button type="submit">Submit</button>
+    <button type="submit">Log-In</button>
+    <div class="form-error-message" v-if="errorMessage">
+      {{ errorMessage }}
+    </div>
   </form>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { CurrentUser, LoginBody } from '@/models'
+import type { ErrorResponse, LoginBody } from '@/models'
 import { useRouting } from '@/composables'
-import { authTokenService, requestService } from '@/services'
 import { useUserStore } from '@/stores'
 
 const routing = useRouting()
 const userStore = useUserStore()
-const { setCurrentUser } = userStore
-
-const request = requestService()
-const authToken = authTokenService()
 
 const isSubmitting = ref<boolean>(false)
-const username = ref('')
-const password = ref('')
+const errorMessage = ref<string | null>('')
+
+const body: LoginBody = {
+  username: '',
+  password: '',
+} 
 
 const submit = async () => {
   try {
     if (isSubmitting.value) {
       return
     }
+
     isSubmitting.value = true
 
-    const body: LoginBody = {
-      username: username.value,
-      password: password.value
+    const errorResponse: ErrorResponse | null = await userStore.login(body)
+    if (errorResponse) {
+      errorMessage.value = errorResponse.error
+    } else{
+      errorMessage.value = null
+      routing.toHome()
     }
-
-    const currentUser: CurrentUser = await request.login(body)
-    setCurrentUser(currentUser)
-    await authToken.set(currentUser.token)
-
-    await routing.toHome()
 
     isSubmitting.value = false
   } catch (e) {

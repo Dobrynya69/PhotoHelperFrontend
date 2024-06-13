@@ -2,6 +2,7 @@ import type {
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
+  AxiosResponseHeaders,
   CreateAxiosDefaults,
   InternalAxiosRequestConfig
 } from 'axios'
@@ -16,7 +17,7 @@ export const apiService = () => {
   const instance: AxiosInstance = axios.create({
     baseURL: apiUrl,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
       Accept: 'application/json'
     }
   } as CreateAxiosDefaults)
@@ -31,33 +32,28 @@ export const apiService = () => {
     return config
   })
 
-  async function get<T = any, R = any>(url: string, config?: AxiosRequestConfig<T>): Promise<R> {
-    console.log(instance)
+  async function get<T = any, R = any>(url: string, config?: AxiosRequestConfig<T>): Promise<[R, Number]> {
     return formattingResponse(await instance.get(url, config as AxiosRequestConfig<T>))
   }
 
-  async function post<T = any, R = any>(
-    url: string,
-    data?: T,
-    config?: AxiosRequestConfig<T>
-  ): Promise<R> {
+  async function post<T = any, R = any>(url: string, data?: T, config?: AxiosRequestConfig<T>): Promise<[R, Number]> {
     return formattingResponse(await instance.post(url, data, config as AxiosRequestConfig<T>))
   }
 
-  async function put<T = any, R = any>(
-    url: string,
-    data?: T,
-    config?: AxiosRequestConfig<T>
-  ): Promise<R> {
+  async function put<T = any, R = any>(url: string, data?: T, config?: AxiosRequestConfig<T>): Promise<[R, Number]> {
     return formattingResponse(await instance.put(url, data, config as AxiosRequestConfig<T>))
   }
 
-  async function del<T = any, R = any>(url: string, config?: AxiosRequestConfig<T>): Promise<R> {
+  async function patch<T = any, R = any>(url: string, data?: T, config?: AxiosRequestConfig<T>): Promise<[R, Number]> {
+    return formattingResponse(await instance.patch(url, data, config as AxiosRequestConfig<T>))
+  }
+
+  async function del<T = any, R = any>(url: string, config?: AxiosRequestConfig<T>): Promise<[R, Number]> {
     return formattingResponse(await instance.delete(url, config as AxiosRequestConfig<T>))
   }
 
-  function formattingResponse<T = any>(response: AxiosResponse<T>): T {
-    return response.data
+  function formattingResponse<T = any>(response: AxiosResponse<T>): [T, Number] {
+    return [response.data, response.status]
   }
 
   return {
@@ -66,6 +62,7 @@ export const apiService = () => {
     get,
     post,
     put,
-    del
+    patch,
+    del,
   }
 }

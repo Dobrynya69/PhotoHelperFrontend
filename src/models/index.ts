@@ -1,3 +1,7 @@
 export * from './localforage'
 export * from './login'
+export * from './signup'
 export * from './user'
+export * from './errors'
+export * from './group'
+export * from './image'

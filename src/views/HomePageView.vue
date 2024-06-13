@@ -1,12 +1,15 @@
 <template>
-  <div class="home-page--wrapper">
-    <div class="home-page--image">
+  <div class="home-page-wrapper">
+    <div class="home-page-image">
       <img src="@/assets/images/background.jpg" alt="background" />
     </div>
-    <span class="home-page--text">
-      Welcome to Photo Helper, log-in into the account or create a new one if you are new
+    <span class="home-page-text" v-if="currentUser === null">
+      Welcome to Photo Helper, log-in into the account or create a new one.
     </span>
-    <div class="home-page--buttons">
+    <span class="home-page-text" v-else>
+      Welcome to Photo Helper {{currentUser!.first_name}} {{currentUser!.last_name}}!
+    </span>
+    <div class="home-page-buttons" v-if="currentUser === null">
       <AppLinkButton path="/log-in">Log-In</AppLinkButton>
       <AppLinkButton path="/sign-up">Sign-Up</AppLinkButton>
     </div>
@@ -14,13 +17,18 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import AppLinkButton from '@/components/AppLinkButton.vue'
+import { useUserStore } from '@/stores'
+
+const userStore = useUserStore()
+const { currentUser } = storeToRefs(userStore)
 </script>
 
 <style scoped>
-.home-page--wrapper {
+.home-page-wrapper {
   position: relative;
-  width: 100%;
+  width: 100vw;
   min-height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
@@ -28,16 +36,16 @@ import AppLinkButton from '@/components/AppLinkButton.vue'
   justify-content: center;
 }
 
-.home-page--image {
+.home-page-image {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(31, 31, 31, 0.8);
+  background-color: rgba(var(--app-black), 0.8);
 }
 
-.home-page--image img {
+.home-page-image img {
   position: absolute;
   top: 0;
   left: 0;
@@ -48,14 +56,14 @@ import AppLinkButton from '@/components/AppLinkButton.vue'
   filter: blur(10px);
 }
 
-.home-page--buttons {
+.home-page-buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.home-page--text {
+.home-page-text {
   position: relative;
   margin: 0 10px;
   font-family: Inter-Bold;

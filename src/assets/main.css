@@ -3,11 +3,226 @@
   margin: 0;
 }
 
+:root {
+  --app-black: 31, 31, 31;
+  --app-white: 242, 242, 242;
+  --app-red: 237, 84, 74;
+  --app-main: 184, 108, 245;
+  --app-main-shade: 238, 189, 245;
+  --app-second: 245, 108, 110;
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+  background: rgb(var(--app-black));
+}
+::-webkit-scrollbar-thumb{
+  background: rgb(var(--app-white));
+  border-radius: 5px;
+  border: 4px solid rgb(var(--app-black));
+  transition: 300ms;
+}
+
 body {
-  padding-top: 70px;
-  min-height: calc(100vh - 70px);
-  background-color: #1f1f1f;
+  box-sizing: border-box;
+  padding-top: 65px;
+  min-height: 100vh;
+  background-color: rgb(var(--app-black));
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px;
+  padding: 20px;
+  min-width: 150px;
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  background-color: rgba(var(--app-main), 0.5);
+  border-radius: 10px;
+  transition: transform 300ms;
+}
+
+form .custom-input{
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: rgb(var(--app-black));
+  border: none;
+  border-radius: 5px;
+  color: rgb(var(--app-white));
+  font-family: Inter-Bold;
+}
+
+.custom-input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: rgb(var(--app-black));
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: Inter-Bold;
+  color: rgba(var(--app-white), 0.6);
+  gap: 10px;
+}
+
+.v-select{
+  color: rgb(var(--app-white));
+  font-family: Inter-Bold;
+}
+
+.custom-select .vs__dropdown-toggle{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: rgb(var(--app-black));
+  border: none;
+  border-radius: 5px;
+}
+
+.custom-select .vs__clear{
+  visibility: hidden;
+}
+
+.custom-select .vs__selected{
+  color: rgb(var(--app-white));
+  font-family: Inter-Bold;
+  display: inline-block;
+  max-width: 100px;
+  text-wrap: nowrap;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+}
+
+.custom-select .vs__selected-options{
+  flex-wrap: nowrap;
+}
+
+.custom-select .vs__dropdown-menu{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: rgb(var(--app-black));
+  border: none;
+  border-radius: 0 0 5px 5px;
+  border-top: 5px rgb(var(--app-second)) solid;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  top: 100%;
+  left: 0;
+}
+
+.custom-select .vs__dropdown-option{
+  color: rgba(var(--app-white), 0.8);
+  border-radius: 5px;
+  font-family: Inter-Bold;
+  display: inline-block;
+  max-width: 100%;
+  width: 100%;
+  text-wrap: nowrap;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+  transition: color 300ms, background-color 300ms;
+}
+
+.custom-select .vs__dropdown-option--highlight{
+  color: rgb(var(--app-white));
+  background-color: rgb(var(--app-second));
+}
+
+.custom-file-upload-pre-image{
+  width: 100px;
+  height: 100px;
+  background-color: rgba(var(--app-main-shade), 0.5);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+  font-family: Inter-Bold;
+  overflow: hidden;
+}
+
+.custom-file-upload-pre-image img:not(.custom-file-upload-placeholder){
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.custom-file-upload-placeholder{
+  width: 50px;
+  height: 50px;
+  opacity: 0.5;
+}
+
+form .custom-input::placeholder{
+  color: rgba(var(--app-white), 0.6);
+}
+
+form .custom-input:focus{
+  outline: none;
+  transform: scale(1.03, 1.03);
+  transition: transform 300ms;
+}
+
+form button{
+  cursor: pointer;
+  padding: 10px 20px;
+  border: none;
+  background-color: rgb(var(--app-main));
+  border-radius: 5px;
+  color: rgb(var(--app-white));
+  font-family: Inter-Bold;
+  font-size: 14px;
+  transition: background-color 300ms, color 300ms;
+}
+
+.form-error-message{
+  box-sizing: border-box;
+  white-space: pre;
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(var(--app-red));
+  color: rgb(var(--app-white));
+  font-family: Inter-Bold;
+  font-size: 14px;
+  border-radius: 5px;
+  text-wrap: wrap;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media(hover: hover){
+  form button:hover{
+    background-color: rgb(var(--app-white));
+    color: rgb(var(--app-main));
+  }
 }

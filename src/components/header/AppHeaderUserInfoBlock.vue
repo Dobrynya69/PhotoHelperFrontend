@@ -1,9 +1,9 @@
 <template>
-  <div class="user-info--wrapper">
-    <div class="user-info--image">
-      <img :src="utils.getFullImageUrl(currentUser?.avatar)" alt="userImage" />
+  <div class="user-info-wrapper">
+    <div class="user-info-image">
+      <img :src="utils.getFullImageUrl(currentUser?.avatar)" alt="userImage" v-if="currentUser?.avatar"/>
     </div>
-    <div class="user-info--text">{{ currentUser?.first_name }} {{ currentUser?.last_name }}</div>
+    <div class="user-info-text">{{ currentUser?.first_name }} {{ currentUser?.last_name }}</div>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ const utils = utilsService()
 </script>
 
 <style scoped>
-.user-info--wrapper {
+.user-info-wrapper {
   position: relative;
   display: flex;
   align-items: center;
@@ -31,38 +31,42 @@ const utils = utilsService()
   transform: translateY(-50%);
   z-index: 0;
 }
-.user-info--image {
+.user-info-image {
   position: relative;
   border-radius: 5px;
-  border: 2px solid #ffffff;
+  background-color: rgb(var(--app-white));
+  border: 2px solid rgb(var(--app-white));
+  padding: 2px;
   width: calc(45px - 4px);
   height: calc(45px - 4px);
   overflow: hidden;
   z-index: 1;
 }
 
-.user-info--image img {
+.user-info-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: 1;
 }
 
-.user-info--text {
+.user-info-text {
+  box-sizing: border-box;
   position: relative;
+  text-wrap: nowrap;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: rgb(var(--app-white));
   padding: 5px 15px;
-  height: calc(30px - 10px);
+  height: 30px;
   font-family: Inter-Bold;
   font-size: 14px;
   border-radius: 0 5px 5px 0;
   z-index: 1;
 }
 
-.user-info--text::before {
+.user-info-text::before {
   content: '';
   position: absolute;
   background-color: transparent;
@@ -71,10 +75,10 @@ const utils = utilsService()
   height: 6.25px;
   width: 3.125px;
   border-top-left-radius: 3.125px;
-  box-shadow: 0 -3.125px 0 0 #ffffff;
+  box-shadow: 0 -3.125px 0 0 rgb(var(--app-white));
 }
 
-.user-info--text::after {
+.user-info-text::after {
   content: '';
   position: absolute;
   background-color: transparent;
@@ -83,7 +87,7 @@ const utils = utilsService()
   height: 6.25px;
   width: 3.125px;
   border-top-left-radius: 3.125px;
-  box-shadow: 0 -3.125px 0 0 #ffffff;
+  box-shadow: 0 -3.125px 0 0 rgb(var(--app-white));
   -moz-transform: scale(1, -1);
   -webkit-transform: scale(1, -1);
   -o-transform: scale(1, -1);

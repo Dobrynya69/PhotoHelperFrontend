@@ -3,16 +3,21 @@ import { useRouter } from 'vue-router'
 export const useRouting = () => {
   const router = useRouter()
 
-  async function toSignIn() {
-    return router.push('/sign-in')
+  async function toLogIn() {
+    return router.push({name: 'log-in'})
   }
 
   async function toHome() {
-    return router.push('/home')
+    return router.push({name: 'home'})
+  }
+
+  async function toUserUpdate() {
+    return router.push({name: 'user-update'})
   }
 
   return {
-    toSignIn,
-    toHome
+    toLogIn,
+    toHome,
+    toUserUpdate
   }
 }

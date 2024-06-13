@@ -3,33 +3,6 @@
     <input
       class="custom-input"
       required
-      v-model="body.username"
-      placeholder="Username"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="text"
-    />
-    <input
-      class="custom-input"
-      required
-      v-model="body.email"
-      placeholder="Email"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="email"
-    />
-    <input
-      class="custom-input"
-      required
-      v-model="body.password"
-      placeholder="Password"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="password"
-    />
-    <input
-      class="custom-input"
-      required
       v-model="body.first_name"
       placeholder="First name"
       :disabled="isSubmitting"
@@ -48,11 +21,12 @@
     <label class="custom-file-upload">
       <div class="custom-file-upload-pre-image">
         <img v-if="preImageUrl" :src="preImageUrl" alt="image">
-        <img v-else src="@/assets/images/no-image.png" alt="image" class="custom-file-upload-placeholder">
+        <img v-else src="@/assets/images/no-image.png" alt="image" style="width: 50px; height: 50px; opacity: 0.5;">
       </div>
       <span>Select Image</span>
       <input
-        v-on:change="signUpFileOnChange"
+        class="custom-input"
+        v-on:change="updateFileOnChange"
         placeholder="First name"
         :disabled="isSubmitting"
         :hide-details="true"
@@ -60,42 +34,50 @@
         accept="image/png, image/jpeg, image/jpg"
       />
     </label>
-    <button type="submit">Sign-Up</button>
+    <button type="submit">Update</button>
     <div class="form-error-message" v-if="errorMessage">
       {{ errorMessage }}
     </div>
   </form>
 </template>
-
+  
 <script setup lang="ts">
-import { ref } from 'vue'
-import type {ErrorResponse, SignUpBody } from '@/models'
-import { useRouting } from '@/composables'
+import { ref, onBeforeMount } from 'vue'
+import type { ErrorResponse, UserUpdateBody } from '@/models'
 import { useUserStore } from '@/stores'
+import { utilsService } from "@/services"
+import { useRouting } from '@/composables'
 
+const utils = utilsService()
 const routing = useRouting()
+
 const userStore = useUserStore()
 
 const preImageUrl = ref<string>('')
 const isSubmitting = ref<boolean>(false)
-const errorMessage = ref<string | null>('')
+const errorMessage = ref<string>('')
 
-const body: SignUpBody = {
-  username: '',
-  email: '',
-  password: '',
+const body: UserUpdateBody = {
   first_name: '',
   last_name: '',
   avatar: null,
 } 
 
-const signUpFileOnChange = (event: Event) => {
+const updateFileOnChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
   if (target && target.files) {
-    preImageUrl.value = URL.createObjectURL(target.files[0]);
+    preImageUrl.value = URL.createObjectURL(target.files[0])
     body.avatar = target.files[0]
   }
 }
+
+onBeforeMount(() => {
+  if (userStore.currentUser) {
+    body.first_name = userStore.currentUser.first_name
+    body.last_name = userStore.currentUser.last_name
+    preImageUrl.value = utils.getFullImageUrl(userStore.currentUser.avatar)
+  }
+})
 
 const submit = async () => {
   try {
@@ -104,11 +86,10 @@ const submit = async () => {
     }
     isSubmitting.value = true
 
-    const errorResponse: ErrorResponse | null = await userStore.signup(body)
+    const errorResponse: ErrorResponse | null = await userStore.update(body)
     if (errorResponse) {
       errorMessage.value = errorResponse.error
     } else{
-      errorMessage.value = null
       routing.toHome()
     }
 
