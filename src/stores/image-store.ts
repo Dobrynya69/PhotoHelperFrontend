@@ -32,7 +32,6 @@ export const useImageStore = defineStore('image', () => {
       }
       images.value.push(selectableImage)
     }
-    console.log(images.value)
   }
 
   async function list(): Promise<ErrorResponse | null> {

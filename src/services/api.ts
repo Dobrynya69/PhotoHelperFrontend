@@ -2,7 +2,6 @@ import type {
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
-  AxiosResponseHeaders,
   CreateAxiosDefaults,
   InternalAxiosRequestConfig
 } from 'axios'
@@ -12,7 +11,7 @@ import { authTokenService } from '@/services/auth-token'
 
 export const apiService = () => {
   const authToken = authTokenService()
-  const apiUrl: string = 'http://localhost:8000/'
+  const apiUrl: string = 'http://45-147-248-58.cloud-xip.com:8000/'
 
   const instance: AxiosInstance = axios.create({
     baseURL: apiUrl,
