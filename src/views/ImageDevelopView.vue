@@ -70,15 +70,6 @@ const imageUpdate = async (newImageFile: File) => {
 }
 
 onMounted(async () => {
-  
-  var allfunctions=[];
-  for ( var i in window) {
-    if((typeof window[i]).toString()=="function"){
-      allfunctions.push(window[i].name);
-    }
-  }
-  console.log(allfunctions)
-
   const imageIdString = route.params.imageId
   let imageId = -1
   if (typeof imageIdString === "string") {
