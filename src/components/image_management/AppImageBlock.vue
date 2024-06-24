@@ -5,12 +5,12 @@
         class="custom-input"
         required
         v-model="imageUpdateBody.title"
-        placeholder="Title"
+        :placeholder="translate('INPUTS.TITLE')"
         :hide-details="true"
         :disabled="imageUpdateIsSubmitting"
         type="text"
       />
-      <button type="submit">Update</button>
+      <button type="submit">{{ translate("BUTTONS.UPDATE") }}</button>
       <div class="form-error-message" v-if="imageUpdateErrorMessage">
         {{ imageUpdateErrorMessage }}
       </div>
@@ -28,7 +28,7 @@
 			<div class="image-action-button" @click="imageStore.toggleActiveImage(selectableImage.image.id)">
 				<img src="@/assets/images/select.png" alt="select">
 			</div>
-			<div class="image-action-button">
+			<div class="image-action-button" @click="routing.toImageDevelop(selectableImage.image.id)">
 				<img src="@/assets/images/develop.png" alt="develop">
 			</div>
 		</div>
@@ -40,12 +40,16 @@ import type { ErrorResponse, ImageUpdateBody, SelectableImage } from '@/models'
 import { utilsService } from '@/services'
 import { useImageStore } from '@/stores/image-store'
 import AppPopup from "@/components/AppPopup.vue"
-import { ref } from 'vue';
+import { ref } from 'vue'
+import { useAppI18n } from '@/i18n'
+import { useRouting } from '@/composables'
 
 const props = defineProps<{
 	selectableImage: SelectableImage
 }>()
 
+const routing = useRouting()
+const { translate } = useAppI18n()
 const imageStore = useImageStore()
 const utils = utilsService()
 

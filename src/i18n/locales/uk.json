@@ -1,0 +1,36 @@
+{
+    "BUTTONS": {
+        "LOGIN": "Увійти",
+        "SIGNUP": "Зареєструватися",
+        "LOGUOT": "Вийти",
+        "SUBMIT": "Підтвердити",
+        "DELETE": "Видалити",
+        "UPDATE": "Оновити",
+        "UPLOAD": "Завантажити",
+        "CREATE": "Створити",
+        "HOME": "Головна",
+        "CONFIGURATION": "Конфігурація",
+        "MANAGEMENT": "Управління",
+        "ADD_IMAGES": "Додати фото",
+        "ADD_GROUP": "Додати групу",
+        "UNSELECT_GROUP": "Прибрати виділення групи",
+        "SET_GROUP": "Перемістити в групу"
+    },
+    "INPUTS": {
+        "USERNAME": "Ім'я користувача",
+        "NAME": "Ім'я",
+        "TITLE": "Назва",
+        "FIRST_NAME": "Ім'я",
+        "LAST_NAME": "Прізвище",
+        "PASSWORD": "Пароль",
+        "EMAIL": "Почта",
+        "SELECT_IMAGE": "Оберіть зображення",
+        "IMAGES_SELECTED": "Зображень обрано"
+    },
+    "MESSAGES": {
+        "WELLCOME_NEW": "Вітаємо в Photo Helper, увійдіть в обліковий запис або створіть новий.",
+        "WELLCOME": "Вітаємо в Photo Helper",
+        "NO_GROUPS": "Жодної групи немає.",
+        "COPYRIGHT": "Дипломна робота студента 45 групи Яреська Романа."
+    }
+}

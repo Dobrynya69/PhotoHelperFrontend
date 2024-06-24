@@ -1,44 +1,45 @@
 <template>
-  <form @submit.prevent="submit">
-    <input
-      class="custom-input"
-      required
-      v-model="body.first_name"
-      placeholder="First name"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="text"
-    />
-    <input
-      class="custom-input"
-      required
-      v-model="body.last_name"
-      placeholder="Last name"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="text"
-    />
-    <label class="custom-file-upload">
-      <div class="custom-file-upload-pre-image">
-        <img v-if="preImageUrl" :src="preImageUrl" alt="image">
-        <img v-else src="@/assets/images/no-image.png" alt="image" style="width: 50px; height: 50px; opacity: 0.5;">
-      </div>
-      <span>Select Image</span>
+  <div class="auth-wrapper">
+    <form @submit.prevent="submit">
       <input
         class="custom-input"
-        v-on:change="updateFileOnChange"
-        placeholder="First name"
+        required
+        v-model="body.first_name"
+        :placeholder="translate('INPUTS.FIRST_NAME')"
         :disabled="isSubmitting"
         :hide-details="true"
-        type="file"
-        accept="image/png, image/jpeg, image/jpg"
+        type="text"
       />
-    </label>
-    <button type="submit">Update</button>
-    <div class="form-error-message" v-if="errorMessage">
-      {{ errorMessage }}
-    </div>
-  </form>
+      <input
+        class="custom-input"
+        required
+        v-model="body.last_name"
+        :placeholder="translate('INPUTS.LAST_NAME')"
+        :disabled="isSubmitting"
+        :hide-details="true"
+        type="text"
+      />
+      <label class="custom-file-upload">
+        <div class="custom-file-upload-pre-image">
+          <img v-if="preImageUrl" :src="preImageUrl" alt="image">
+          <img v-else src="@/assets/images/no-image.png" alt="image" style="width: 50px; height: 50px; opacity: 0.5;">
+        </div>
+        <span>{{ translate("INPUTS.SELECT_IMAGE") }}</span>
+        <input
+          class="custom-input"
+          v-on:change="updateFileOnChange"
+          :disabled="isSubmitting"
+          :hide-details="true"
+          type="file"
+          accept="image/png, image/jpeg, image/jpg"
+        />
+      </label>
+      <button type="submit">{{ translate("BUTTONS.UPDATE") }}</button>
+      <div class="form-error-message" v-if="errorMessage">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
 </template>
   
 <script setup lang="ts">
@@ -47,9 +48,11 @@ import type { ErrorResponse, UserUpdateBody } from '@/models'
 import { useUserStore } from '@/stores'
 import { utilsService } from "@/services"
 import { useRouting } from '@/composables'
+import { useAppI18n } from '@/i18n'
 
 const utils = utilsService()
 const routing = useRouting()
+const { translate } = useAppI18n()
 
 const userStore = useUserStore()
 

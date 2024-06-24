@@ -1,6 +1,5 @@
 import { apiService } from '@/services/api'
 import type { CurrentUser, LoginBody, SignUpBody, ErrorResponse, UserUpdateBody, Group, GroupCreateBody, GroupUpdateBody, Image, ImageCreateBody, ImageUpdateBody } from '@/models'
-import type { AxiosResponseHeaders } from 'axios'
 
 export const requestService = () => {
   const api = apiService()
@@ -52,19 +51,23 @@ export const requestService = () => {
     return api.get(`api/image/`)
   }
 
-  async function imageCreate(body: ImageCreateBody, groupId: number): Promise<[Image[] | ErrorResponse, Number]> {
+  async function imageRetrieve(imageId: number): Promise<[Image | ErrorResponse, Number]> {
+    return api.get(`api/image/${imageId}/`)
+  }
+
+  async function imageCreate(body: ImageCreateBody, groupId: number): Promise<[Image | ErrorResponse, Number]> {
     return api.post(`api/image/group/${groupId}/`, body)
   }
 
-  async function imageCreateWithoutGroup(body: ImageCreateBody): Promise<[Image[] | ErrorResponse, Number]> {
+  async function imageCreateWithoutGroup(body: ImageCreateBody): Promise<[Image | ErrorResponse, Number]> {
     return api.post(`api/image/`, body)
   }
 
-  async function imageUpdate(body: ImageUpdateBody, imageId: number): Promise<[Image[] | ErrorResponse, Number]> {
+  async function imageUpdate(body: ImageUpdateBody, imageId: number): Promise<[Image | ErrorResponse, Number]> {
     return api.patch(`api/image/${imageId}/`, body)
   }
 
-  async function imageUpdateGroup(imageId: number, groupId: number): Promise<[Image[] | ErrorResponse, Number]> {
+  async function imageUpdateGroup(imageId: number, groupId: number): Promise<[Image | ErrorResponse, Number]> {
     return api.put(`api/image/${imageId}/group/${groupId}/`)
   }
 
@@ -98,6 +101,7 @@ export const requestService = () => {
     //Image
     imageList,
     imageListWithoutGroup,
+    imageRetrieve,
     imageCreate,
     imageCreateWithoutGroup,
     imageUpdateGroup,

@@ -2,13 +2,23 @@ import { useRouter } from 'vue-router'
 
 export const useRouting = () => {
   const router = useRouter()
-
-  async function toLogIn() {
-    return router.push({name: 'log-in'})
-  }
-
+  //Global
   async function toHome() {
     return router.push({name: 'home'})
+  }
+
+  //Image
+  async function toImageManagement() {
+    return router.push({name: 'management'})
+  }
+
+  async function toImageDevelop(imageId: string | number) {
+    return router.push({name: 'develop', params: { imageId: imageId }})
+  }
+
+  //User
+  async function toLogIn() {
+    return router.push({name: 'log-in'})
   }
 
   async function toUserUpdate() {
@@ -16,8 +26,15 @@ export const useRouting = () => {
   }
 
   return {
-    toLogIn,
+    //Global
     toHome,
+
+    //Image
+    toImageManagement,
+    toImageDevelop,
+
+    //User
+    toLogIn,
     toUserUpdate
   }
 }

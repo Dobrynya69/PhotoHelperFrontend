@@ -4,14 +4,17 @@
       <img src="@/assets/images/background.jpg" alt="background" />
     </div>
     <span class="home-page-text" v-if="currentUser === null">
-      Welcome to Photo Helper, log-in into the account or create a new one.
+      {{ translate("MESSAGES.WELLCOME_NEW") }}
     </span>
     <span class="home-page-text" v-else>
-      Welcome to Photo Helper {{currentUser!.first_name}} {{currentUser!.last_name}}!
+      {{ translate("MESSAGES.WELLCOME") }} {{currentUser!.first_name}} {{currentUser!.last_name}}!
+    </span>
+    <span class="copyright-text">
+      {{ translate("MESSAGES.COPYRIGHT") }}
     </span>
     <div class="home-page-buttons" v-if="currentUser === null">
-      <AppLinkButton path="/log-in">Log-In</AppLinkButton>
-      <AppLinkButton path="/sign-up">Sign-Up</AppLinkButton>
+      <AppLinkButton path="/log-in">{{ translate("BUTTONS.LOGIN") }}</AppLinkButton>
+      <AppLinkButton path="/sign-up">{{ translate("BUTTONS.SIGNUP") }}</AppLinkButton>
     </div>
   </div>
 </template>
@@ -20,9 +23,12 @@
 import { storeToRefs } from 'pinia'
 import AppLinkButton from '@/components/AppLinkButton.vue'
 import { useUserStore } from '@/stores'
+import { useAppI18n } from '@/i18n'
 
 const userStore = useUserStore()
 const { currentUser } = storeToRefs(userStore)
+const { translate } = useAppI18n()
+
 </script>
 
 <style scoped>
@@ -68,7 +74,18 @@ const { currentUser } = storeToRefs(userStore)
   margin: 0 10px;
   font-family: Inter-Bold;
   font-size: calc(20px + (20 + 20 * 0.7) * ((100vw - 320px) / 1280));
-  color: #ffffff;
+  color: rgb(var(--app-white));
+  text-align: center;
+  max-width: 1400px;
+  z-index: 1;
+}
+
+.copyright-text{
+  position: relative;
+  margin: 0 10px;
+  font-family: Inter-Bold;
+  font-size: 12px;
+  color: rgb(var(--app-white));
   text-align: center;
   max-width: 1400px;
   z-index: 1;

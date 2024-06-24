@@ -1,38 +1,42 @@
 <template>
-  <form @submit.prevent="submit">
-    <input
-      class="custom-input"
-      required
-      v-model="body.username"
-      placeholder="Username"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="text"
-    />
-    <input
-      class="custom-input"
-      required
-      v-model="body.password"
-      placeholder="Password"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="password"
-    />
-    <button type="submit">Log-In</button>
-    <div class="form-error-message" v-if="errorMessage">
-      {{ errorMessage }}
-    </div>
-  </form>
+  <div class="auth-wrapper">
+    <form @submit.prevent="submit">
+      <input
+        class="custom-input"
+        required
+        v-model="body.username"
+        :placeholder="translate('INPUTS.USERNAME')"
+        :disabled="isSubmitting"
+        :hide-details="true"
+        type="text"
+      />
+      <input
+        class="custom-input"
+        required
+        v-model="body.password"
+        :placeholder="translate('INPUTS.PASSWORD')"
+        :disabled="isSubmitting"
+        :hide-details="true"
+        type="password"
+      />
+      <button type="submit">{{ translate("BUTTONS.LOGIN") }}</button>
+      <div class="form-error-message" v-if="errorMessage">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useAppI18n } from "@/i18n";
 import type { ErrorResponse, LoginBody } from '@/models'
 import { useRouting } from '@/composables'
 import { useUserStore } from '@/stores'
 
 const routing = useRouting()
 const userStore = useUserStore()
+const { translate } = useAppI18n()
 
 const isSubmitting = ref<boolean>(false)
 const errorMessage = ref<string | null>('')

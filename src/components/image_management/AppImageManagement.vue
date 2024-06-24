@@ -1,7 +1,7 @@
 <template>
   <AppPopup :active="imageDeleteAllFormIsActive" @toggleActive="imageDeleteAllFormIsActive=!imageDeleteAllFormIsActive">
     <form @submit.prevent="imageDeleteAllSubmit">
-      <button type="submit">Delete</button>
+      <button type="submit">{{ translate("BUTTONS.DELETE") }}</button>
       <div class="form-error-message" v-if="imageDeleteAllErrorMessage">
         {{ imageDeleteAllErrorMessage }}
       </div>
@@ -16,10 +16,7 @@
         v-model="imageUpdateGroup"
       >
       </app-select>
-      <button type="submit">Set Group</button>
-      <div class="form-error-message" v-if="imageUpdateGroupErrorMessage">
-        {{ imageUpdateGroupErrorMessage }}
-      </div>
+      <button type="submit">{{ translate("BUTTONS.SET_GROUP") }}</button>
       <div class="form-error-message" v-if="imageUpdateGroupErrorMessage">
         {{ imageUpdateGroupErrorMessage }}
       </div>
@@ -30,15 +27,14 @@
       <label class="custom-file-upload">
         <div class="custom-file-upload-pre-image">
           <span v-if="imageCreateBodies.length">
-            Images selected: {{ imageCreateBodies.length }} 
+            {{ imageCreateBodies.length }}
           </span>
           <img v-else src="@/assets/images/no-image.png" alt="image" class="custom-file-upload-placeholder">
         </div>
-        <span>Select Image</span>
+        <span>{{ translate("INPUTS.SELECT_IMAGE") }}</span>
         <input
           class="custom-input"
           v-on:change="imageCreateFilesOnChange"
-          placeholder="First name"
           :disabled="imageCreateIsSubmitting"
           :hide-details="true"
           type="file"
@@ -46,7 +42,7 @@
           accept="image/png, image/jpeg, image/jpg"
         />
       </label>
-      <button type="submit">Upload</button>
+      <button type="submit">{{ translate("BUTTONS.UPLOAD") }}</button>
       <div class="form-error-message" v-if="imageCreateErrorMessage">
         {{ imageCreateErrorMessage }}
       </div>
@@ -55,7 +51,7 @@
   <div class="image-management-wrapper">
     <div class="image-wrapper">
       <div class="image-create-button" @click="imageCreteFormIsActive=true">
-        <span>Add Images</span>
+        <span>{{ translate("BUTTONS.ADD_IMAGES") }}</span>
         <img src="@/assets/images/add.png" alt="add"/>
       </div>
       <AppImageBlock v-for="selectableImage in images" :key="selectableImage.image.id" :selectableImage="selectableImage"></AppImageBlock>
@@ -88,10 +84,12 @@ import { useImageStore } from '@/stores/image-store'
 import { storeToRefs } from 'pinia'
 import AppPopup from "@/components/AppPopup.vue"
 import AppImageBlock from "@/components/image_management/AppImageBlock.vue"
-import { ref } from 'vue';
+import { ref } from 'vue'
 import type { ErrorResponse, Group, ImageCreateBody } from '@/models'
-import { useGroupStore } from '@/stores';
+import { useGroupStore } from '@/stores'
+import { useAppI18n } from '@/i18n'
 
+const { translate } = useAppI18n()
 const imageStore = useImageStore()
 const groupStore = useGroupStore()
 const { images } = storeToRefs(imageStore)
@@ -237,6 +235,7 @@ const imageUpdateGroupSubmit = async () => {
     color: rgb(var(--app-white));
     font-size: 20px;
     font-family: Inter-Bold;
+    text-align: center;
     transition: background-color 300ms;
   }
 

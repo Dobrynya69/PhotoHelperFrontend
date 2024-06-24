@@ -1,7 +1,7 @@
 <template>
   <AppPopup :active="groupDeleteFormIsActive" @toggleActive="groupDeleteFormIsActive=!groupDeleteFormIsActive">
     <form @submit.prevent="submitGroupDelete">
-      <button type="submit">Delete</button>
+      <button type="submit">{{ translate("BUTTONS.DELETE") }}</button>
       <div class="form-error-message" v-if="groupDeleteErrorMessage">
         {{ groupDeleteErrorMessage }}
       </div>
@@ -13,12 +13,12 @@
         class="custom-input"
         required
         v-model="groupUpdateBody.name"
-        placeholder="Name"
+        :placeholder="translate('INPUTS.NAME')"
         :hide-details="true"
         :disabled="groupUpdateIsSubmitting"
         type="text"
       />
-      <button type="submit">Update</button>
+      <button type="submit">{{ translate("BUTTONS.UPDATE") }}</button>
       <div class="form-error-message" v-if="groupUpdateErrorMessage">
         {{ groupUpdateErrorMessage }}
       </div>
@@ -51,12 +51,14 @@ import type { ErrorResponse, Group, GroupUpdateBody } from '@/models'
 import { useGroupStore } from '@/stores'
 import { ref} from "vue";
 import AppPopup from "@/components/AppPopup.vue"
+import { useAppI18n } from '@/i18n';
 
 const props = defineProps<{
   group: Group
 }>()
 
 const groupStore = useGroupStore()
+const { translate } = useAppI18n()
 
 const groupDeleteErrorMessage = ref<string | null>('')
 const groupDeleteFormIsActive = ref<boolean>(false)

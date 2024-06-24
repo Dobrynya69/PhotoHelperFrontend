@@ -3,7 +3,11 @@
     <div class="user-info-image">
       <img :src="utils.getFullImageUrl(currentUser?.avatar)" alt="userImage" v-if="currentUser?.avatar"/>
     </div>
-    <div class="user-info-text">{{ currentUser?.first_name }} {{ currentUser?.last_name }}</div>
+    <div class="user-info-text">
+      <span>
+        {{ currentUser?.first_name }} {{ currentUser?.last_name }}
+      </span>
+    </div>
   </div>
 </template>
 
@@ -64,6 +68,14 @@ const utils = utilsService()
   font-size: 14px;
   border-radius: 0 5px 5px 0;
   z-index: 1;
+}
+
+.user-info-text span{
+  max-width: 110px;
+  text-wrap: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .user-info-text::before {

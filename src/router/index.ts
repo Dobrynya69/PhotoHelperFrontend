@@ -11,10 +11,18 @@ const router = createRouter({
       component: () => import('@/views/HomePageView.vue'),
       meta: {auth: false}
     },
+
+    //Image
     {
       path: '/management',
       name: 'management',
       component: () => import('@/views/ManagementView.vue'),
+      meta: {auth: true}
+    },
+    {
+      path: '/develop/:imageId',
+      name: 'develop',
+      component: () => import('@/views/ImageDevelopView.vue'),
       meta: {auth: true}
     },
 

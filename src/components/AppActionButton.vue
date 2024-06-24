@@ -16,11 +16,15 @@
 .action-button span {
   display: block;
   cursor: pointer;
-  text-wrap: nowrap;
   padding: 5px;
   font-family: Inter-Bold;
   font-size: 14px;
   text-decoration: none;
+  max-width: 100%;
+  text-wrap: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: rgb(var(--app-white));
 }
 

@@ -4,8 +4,6 @@ import { ref } from 'vue'
 import type { Image, ErrorResponse, ImageCreateBody, ImageUpdateBody, SelectableImage } from '@/models'
 import { authTokenService, requestService, utilsService } from '@/services'
 import { useGroupStore } from './group-store'
-import axios from 'axios'
-import JSZip from 'jszip'
 
 export const useImageStore = defineStore('image', () => {
   const request = requestService()
@@ -34,6 +32,7 @@ export const useImageStore = defineStore('image', () => {
       }
       images.value.push(selectableImage)
     }
+    console.log(images.value)
   }
 
   async function list(): Promise<ErrorResponse | null> {
@@ -62,6 +61,19 @@ export const useImageStore = defineStore('image', () => {
     await setImages([])
     return null
   }
+
+  async function retrieve(imageId: number): Promise<Image | null> {
+    const token: string | null = await authToken.get()
+    if (token) {
+      const [responseData, responseStatus] = await request.imageRetrieve(imageId);
+      if (responseStatus == 200) {
+        return responseData as Image
+      }
+    }
+
+    return null
+  }
+
 
   async function create(body: ImageCreateBody): Promise<ErrorResponse | null> {
     const token: string | null = await authToken.get()
@@ -202,6 +214,7 @@ export const useImageStore = defineStore('image', () => {
     isImagesActive,
     populate,
     list,
+    retrieve,
     create,
     update,
     updateGroupActiveImageAll,

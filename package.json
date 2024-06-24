@@ -13,12 +13,14 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@pqina/pintura": "^8.82.4",
+    "@pqina/pintura": "^8.82.6",
+    "@pqina/vue-pintura": "^9.0.1",
     "axios": "^1.6.8",
     "jszip": "^3.10.1",
     "localforage": "^1.10.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
+    "vue-i18n": "^9.13.1",
     "vue-router": "^4.3.0",
     "vue-select": "^4.0.0-beta.6"
   },

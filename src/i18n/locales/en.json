@@ -1,0 +1,36 @@
+{
+    "BUTTONS": {
+        "LOGIN": "Log-In",
+        "SIGNUP": "Sign-Up",
+        "LOGUOT": "Log-Out",
+        "SUBMIT": "Submit",
+        "DELETE": "Delete",
+        "UPDATE": "Update",
+        "UPLOAD": "Upload",
+        "CREATE": "Create",
+        "HOME": "Home",
+        "CONFIGURATION": "Configuration",
+        "MANAGEMENT": "Management",
+        "ADD_IMAGES": "Add Images",
+        "ADD_GROUP": "Add Group",
+        "UNSELECT_GROUP": "Unselect Group",
+        "SET_GROUP": "Set Group"
+    },
+    "INPUTS": {
+        "USERNAME": "Username",
+        "NAME": "Name",
+        "TITLE": "Title",
+        "FIRST_NAME": "First name",
+        "LAST_NAME": "Last name",
+        "PASSWORD": "Password",
+        "EMAIL": "Email",
+        "SELECT_IMAGE": "Select Image",
+        "IMAGES_SELECTED": "Images Selected"
+    },
+    "MESSAGES": {
+        "WELLCOME_NEW": "Welcome to Photo Helper, log-in into the account or create a new one.",
+        "WELLCOME": "Welcome to Photo Helper",
+        "NO_GROUPS": "There are no groups.",
+        "COPYRIGHT": "Diploma work of the student of the 45th group, Roman Yaresko."
+    }
+}

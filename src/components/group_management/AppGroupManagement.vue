@@ -5,12 +5,12 @@
         class="custom-input"
         required
         v-model="groupCreateBody.name"
-        placeholder="Name"
+        :placeholder="translate('INPUTS.NAME')"
         :hide-details="true"
         :disabled="groupCreateIsSubmitting"
         type="text"
       />
-      <button type="submit">Create</button>
+      <button type="submit">{{ translate("BUTTONS.CREATE") }}</button>
       <div class="form-error-message" v-if="groupCreateErrorMessage">
         {{ groupCreateErrorMessage }}
       </div>
@@ -18,13 +18,13 @@
   </AppPopup>
   <div class="group-management-wrapper">
       <div @click="groupCreteFormIsActive=true" class="group-create-button">
-        <span>Add Group</span>
+        <span>{{ translate("BUTTONS.ADD_GROUP") }}</span>
         <img src="@/assets/images/add.png" alt="add"/>
       </div>
       <div @click="groupStore.setActiveGroup(null)" :class="{'active': activeGroup}" class="group-unselect">
-        <span>Unselect Group</span>
+        <span>{{ translate("BUTTONS.UNSELECT_GROUP") }}</span>
       </div>
-      <div class="no-groups" v-if="!groups || !groups.length">There are no groups.</div>
+      <div class="no-groups" v-if="!groups || !groups.length">{{ translate("MESSAGES.NO_GROUPS") }}</div>
       <AppGroupBlock v-for="group in groups" :key="group.id" :group="group"></AppGroupBlock>
   </div>
 </template>
@@ -36,10 +36,12 @@ import AppGroupBlock from "@/components/group_management/AppGroupBlock.vue"
 import AppPopup from "@/components/AppPopup.vue"
 import { ref } from 'vue'
 import type { ErrorResponse, GroupCreateBody } from '@/models'
+import { useAppI18n } from '@/i18n'
 
 const groupCreateIsSubmitting = ref<boolean>(false)
 const groupCreateErrorMessage = ref<string | null>('')
 const groupCreteFormIsActive = ref<boolean>(false)
+const { translate } = useAppI18n()
 
 const groupStore = useGroupStore()
 const { groups, activeGroup } = storeToRefs(groupStore)

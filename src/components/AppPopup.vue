@@ -64,7 +64,6 @@ const emit = defineEmits<{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
     width: 100%;
     border-radius: 10px;
     background-color: rgb(var(--app-black));

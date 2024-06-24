@@ -1,70 +1,72 @@
 <template>
-  <form @submit.prevent="submit">
-    <input
-      class="custom-input"
-      required
-      v-model="body.username"
-      placeholder="Username"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="text"
-    />
-    <input
-      class="custom-input"
-      required
-      v-model="body.email"
-      placeholder="Email"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="email"
-    />
-    <input
-      class="custom-input"
-      required
-      v-model="body.password"
-      placeholder="Password"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="password"
-    />
-    <input
-      class="custom-input"
-      required
-      v-model="body.first_name"
-      placeholder="First name"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="text"
-    />
-    <input
-      class="custom-input"
-      required
-      v-model="body.last_name"
-      placeholder="Last name"
-      :disabled="isSubmitting"
-      :hide-details="true"
-      type="text"
-    />
-    <label class="custom-file-upload">
-      <div class="custom-file-upload-pre-image">
-        <img v-if="preImageUrl" :src="preImageUrl" alt="image">
-        <img v-else src="@/assets/images/no-image.png" alt="image" class="custom-file-upload-placeholder">
-      </div>
-      <span>Select Image</span>
+  <div class="auth-wrapper">
+    <form @submit.prevent="submit">
       <input
-        v-on:change="signUpFileOnChange"
-        placeholder="First name"
+        class="custom-input"
+        required
+        v-model="body.username"
+        :placeholder="translate('INPUTS.USERNAME')"
         :disabled="isSubmitting"
         :hide-details="true"
-        type="file"
-        accept="image/png, image/jpeg, image/jpg"
+        type="text"
       />
-    </label>
-    <button type="submit">Sign-Up</button>
-    <div class="form-error-message" v-if="errorMessage">
-      {{ errorMessage }}
-    </div>
-  </form>
+      <input
+        class="custom-input"
+        required
+        v-model="body.email"
+        :placeholder="translate('INPUTS.EMAIL')"
+        :disabled="isSubmitting"
+        :hide-details="true"
+        type="email"
+      />
+      <input
+        class="custom-input"
+        required
+        v-model="body.password"
+        :placeholder="translate('INPUTS.PASSWORD')"
+        :disabled="isSubmitting"
+        :hide-details="true"
+        type="password"
+      />
+      <input
+        class="custom-input"
+        required
+        v-model="body.first_name"
+        :placeholder="translate('INPUTS.FIRST_NAME')"
+        :disabled="isSubmitting"
+        :hide-details="true"
+        type="text"
+      />
+      <input
+        class="custom-input"
+        required
+        v-model="body.last_name"
+        :placeholder="translate('INPUTS.LAST_NAME')"
+        :disabled="isSubmitting"
+        :hide-details="true"
+        type="text"
+      />
+      <label class="custom-file-upload">
+        <div class="custom-file-upload-pre-image">
+          <img v-if="preImageUrl" :src="preImageUrl" alt="image">
+          <img v-else src="@/assets/images/no-image.png" alt="image" class="custom-file-upload-placeholder">
+        </div>
+        <span>{{ translate("INPUTS.SELECT_IMAGE") }}</span>
+        <input
+          class="custom-input"
+          v-on:change="signUpFileOnChange"
+          :disabled="isSubmitting"
+          :hide-details="true"
+          type="file"
+          accept="image/png, image/jpeg, image/jpg"
+        />
+      </label>
+      <button type="submit">{{ translate("BUTTONS.SIGNUP") }}</button>
+      <div class="form-error-message" v-if="errorMessage">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -72,9 +74,11 @@ import { ref } from 'vue'
 import type {ErrorResponse, SignUpBody } from '@/models'
 import { useRouting } from '@/composables'
 import { useUserStore } from '@/stores'
+import { useAppI18n } from '@/i18n'
 
 const routing = useRouting()
 const userStore = useUserStore()
+const { translate } = useAppI18n()
 
 const preImageUrl = ref<string>('')
 const isSubmitting = ref<boolean>(false)
